@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/950a7f698f.js" crossorigin="anonymous"></script>
+  
+  <title>Quizz Interativo</title>
+</head>
+<body>
+  <div id="quiz-container">
+    <h1>Quizz do Ensino Médio</h1>
+    <div id="question-container">
+      <p id="question"></p>
+      <img id="question-image" src="" alt="Imagem da pergunta">
+      <div id="answer-buttons" class="btn-container"></div>
+    </div>
+    <div id="next-button-container">
+      <button id="next-button" class="btn">Próxima</button>
+    </div>
+    <div id="score-container">
+      <p>Pontuação: <span id="score">0</span></p>
+    </div>
+  </div>
+  <script>
+    const options = document.querySelectorAll('.option');
+const scoreElement = document.querySelector('.score');
+const nextQuestionDelay = 1000; // Delay após escolher uma opção
+
+let score = 0;
+let chances = 2;
+let currentQuestion = 0;
+
+options.forEach(option => {
+  option.addEventListener('click', checkAnswer);
+});
+
+function checkAnswer(e) {
+  if (e.target.textContent === 'a) x = (-b ± √(b² - 4ac)) / 2a') {
+    score += 10;
+    scoreElement.textContent = score;
+    currentQuestion++;
+    if (currentQuestion >= questions.length) {
+      endQuiz();
+    } else {
+      loadQuestion();
+    }
+  } else {
+    chances--;
+    if (chances === 0) {
+      endQuiz();
+    } else {
+      alert('Resposta errada. Tente novamente.');
+    }
+  }
+}
+
+function endQuiz() {
+  const quizContainer = document.querySelector('.quiz-container');
+  quizContainer.innerHTML = `
+    <h1>Quiz Finalizado</h1>
+    <p>Sua pontuação final: ${score}</p>
+    <button onclick="restartQuiz()">Reiniciar</button>
+  `;
+}
+
+function restartQuiz() {
+  score = 0;
+  chances = 2;
+  currentQuestion = 0;
+  loadQuestion();
+  scoreElement.textContent = score;
+}
+
+const questions = [
+  {
+    img: 'dom.png',
+    question: 'Qual é a fórmula da equação quadrática?',
+    options: [
+      'a) x = (-b ± √(b² - 4ac)) / 2a',
+      'b) x = -b / 2a',
+      'c) x = a² + b²',
+      'd) x = √(b² - 4ac) / 2a'
+    ],
+    answer: 'a) x = (-b ± √(b² - 4ac)) / 2a'
+  },
+  // Adicione mais perguntas aqui
+];
+
+function loadQuestion() {
+  const questionContainer = document.querySelector('.question');
+  questionContainer.innerHTML = `
+    <img src="${questions[currentQuestion].img}" alt="Pergunta ${currentQuestion + 1}">
+    <p>${questions[currentQuestion].question}</p>
+    <ul class="options">
+      ${questions[currentQuestion].options.map(option => `<li><button class="option">${option}</button></li>`).join('')}
+    </ul>
+  `;
+  options.forEach(option => {
+    option.addEventListener('click', checkAnswer);
+  });
+}
+const question = []
+  {
+    question: 'Quem foi o autor de Dom Casmurro?',
+    image: 'dom.png',
+    answers: [
+      { text: 'José de Alencar', correct: false },
+      { text: 'Monteiro Lobato', correct: false },
+      { text: 'Machado de Assis', correct: true },
+      { text: 'Carlos Drummond', correct: false }
+    ]
+  },
+
+// Carregue a primeira pergunta ao iniciar o quiz
+loadQuestion();
+
+  </script>
+</body>
+</html>
+
